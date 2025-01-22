@@ -1,9 +1,16 @@
 // Importamos las bibliotecas necesarias.
 const express = require("express");
+const helmet = require("helmet");
 const { MongoClient, ObjectId, ServerApiVersion } = require("mongodb");
 
 // Inicializamos la aplicación
 const app = express();
+
+app.use(helmet());
+app.use(helmet.hidePoweredBy());
+app.use(helmet.noSniff()); 
+app.use(helmet.xssFilter());
+
 
 // Indicamos que la aplicación puede recibir JSON (API Rest)
 app.use(express.json());
