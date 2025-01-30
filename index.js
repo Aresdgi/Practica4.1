@@ -72,7 +72,7 @@ app.post(
     body("_id").not().exists().withMessage("No puedes enviar el campo _id."),
     body("nombre").isString().notEmpty().withMessage("El campo nombre es obligatorio y debe ser un string."),
     body("direccion").isString().notEmpty().withMessage("El campo direccion es obligatorio y debe ser un string."),
-    body("coches").optional().isArray({ min: 1 }).withMessage("El campo coches debe ser un array con al menos un elemento."),
+    body("coches").optional().isArray({ min: 1 }).withMessage("El campo coches debe ser un array."),
     body("coches.*.id").not().optional().isString().notEmpty().withMessage("No puedes enviar el campo id, se generará automáticamente"),
     body("coches.*.marca").optional().isString().notEmpty().withMessage("Cada coche debe tener una marca de tipo string."),
     body("coches.*.modelo").optional().isString().notEmpty().withMessage("Cada coche debe tener un modelo de tipo string."),
@@ -94,7 +94,8 @@ app.post(
       }
         //ahora se inserta el cocnesionario en la base de datos
       const resultado = await db.collection("concesionarios").insertOne(req.body);
-      const concesionario = { _id: resultado.insertedId, ...req.body }; // Construimos el objeto con el ID insertado
+// Construimos el objeto con el ID insertad
+      const concesionario = { _id: resultado.insertedId, ...req.body }; o
       res.json({ message: "Concesionario creado", concesionario });
     } catch (error) {
       res.status(500).json({ message: "Error al crear concesionario", error });
